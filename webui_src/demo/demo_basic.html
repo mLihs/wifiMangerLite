@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+  <title>Demo - Basic Setup</title>
+  <!-- Direct link to CSS for easy editing -->
+  <link rel="stylesheet" href="../common.css"/>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>WiFi Setup</h1>
+      <div class="subtitle">Select a network to connect</div>
+    </div>
+
+    <!-- Network Selection Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Available Networks</div>
+        <button type="button" class="icon-btn" onclick="refreshNetworks()" title="Refresh">
+          <div class="icon icon-refresh"></div>
+        </button>
+      </div>
+      <div id="networks" class="network-list">
+        <!-- Networks will be populated by JavaScript -->
+      </div>
+    </div>
+    
+    <!-- Password Card -->
+    <form action="#" method="POST" class="card" onsubmit="handleSubmit(event)" id="wifiForm">
+      <label for="password">WiFi Password</label>
+      <input type="password" id="password" name="password0" placeholder="Enter network password" autocomplete="new-password"/>
+      <input type="hidden" id="ssid0" name="ssid0"/>
+      <input type="hidden" id="bssid0" name="bssid0"/>
+      <input type="hidden" name="devicename" value="ESP-Device"/>
+    </form>
+    
+    <!-- Save Button (outside card) -->
+    <div class="button-stack">
+      <button type="submit" form="wifiForm" class="btn btn-large btn-cta" id="saveBtn" disabled>Save &amp; Connect</button>
+    </div>
+    
+    <!-- Footer -->
+    <div class="page-footer">WiFiManagerLite - Demo Mode</div>
+  </div>
+  
+  <!-- Toast Backdrop -->
+  <div id="toast-backdrop"></div>
+  
+  <!-- Toast Notification -->
+  <div id="toast">
+    <div id="toast-icon" class="spinner"></div>
+    <div id="toast-title"></div>
+    <div id="toast-msg"></div>
+  </div>
+  
+  <script>
+    // ============================================
+    // Mock WiFi Networks for Demo
+    // ============================================
+    const mockNetworks = [
+      { ssid: "HomeNetwork_5G",      bssid: "AA:BB:CC:DD:EE:01", rssi: -42, enc: true },
+      { ssid: "HomeNetwork_2.4G",    bssid: "AA:BB:CC:DD:EE:02", rssi: -55, enc: true },
+      { ssid: "Neighbor_WiFi",       bssid: "11:22:33:44:55:01", rssi: -68, enc: true },
+      { ssid: "CoffeeShop_Free",     bssid: "11:22:33:44:55:02", rssi: -72, enc: false },
+      { ssid: "Guest_Network",       bssid: "11:22:33:44:55:03", rssi: -78, enc: true },
+      { ssid: "IoT_Devices",         bssid: "11:22:33:44:55:04", rssi: -85, enc: true },
+      { ssid: "",                    bssid: "99:99:99:99:99:99", rssi: -90, enc: true },  // Hidden network
+    ];
+
+    let selectedSSID = '';
+    let selectedBSSID = '';
+
+    // ============================================
+    // Signal Strength to CSS Class
+    // ============================================
+    function getSignalClass(rssi) {
+      if (rssi >= -50) return 'strength-100';
+      if (rssi >= -60) return 'strength-75';
+      if (rssi >= -70) return 'strength-50';
+      return 'strength-25';
+    }
+
+    // ============================================
+    // Generate WiFi Signal HTML
+    // ============================================
+    function signalHTML(rssi) {
+      const cls = getSignalClass(rssi);
+      return `<div class="wifi-signal ${cls}">
+        <div class="wifi-bar"></div>
+        <div class="wifi-bar"></div>
+        <div class="wifi-bar"></div>
+        <div class="wifi-bar"></div>
+      </div>`;
+    }
+
+    // ============================================
+    // Load Networks (with mock scanning delay)
+    // ============================================
+    function loadNetworks() {
+      const container = document.getElementById('networks');
+      
+      // Show scanning state
+      container.innerHTML = `
+        <div class="network empty">
+          <div style="width:32px;height:32px;background:var(--icon-spinner) no-repeat center/contain"></div>
+          <span>Scanning...</span>
+        </div>`;
+
+      // Simulate scan delay
+      setTimeout(() => {
+        container.innerHTML = '';
+        
+        // Sort by signal strength
+        const sorted = [...mockNetworks].sort((a, b) => b.rssi - a.rssi);
+        
+        sorted.forEach(n => {
+          const btn = document.createElement('button');
+          btn.type = 'button';
+          btn.className = 'network';
+          btn.innerHTML = `
+            ${signalHTML(n.rssi)}
+            <div class="network-info">
+              <div class="ssid">${n.ssid || '(hidden network)'}</div>
+              <div class="network-meta">
+                ${n.rssi} dBm
+                ${!n.enc ? '<span style="color:var(--accent-green)">Open</span>' : ''}
+              </div>
+            </div>
+            ${n.enc ? '<span class="lock-icon network-lock"></span>' : ''}
+          `;
+
+          btn.onclick = function() {
+            // Deselect all
+            document.querySelectorAll('.network').forEach(el => el.classList.remove('selected'));
+            this.classList.add('selected');
+
+            selectedSSID = n.ssid || '';
+            selectedBSSID = n.bssid || '';
+
+            // Update form fields
+            document.getElementById('ssid0').value = selectedSSID;
+            document.getElementById('bssid0').value = selectedBSSID;
+
+            // Enable save button
+            document.getElementById('saveBtn').disabled = !selectedSSID;
+
+            // Focus password field
+            document.getElementById('password').focus();
+          };
+
+          container.appendChild(btn);
+        });
+      }, 800);
+    }
+
+    // ============================================
+    // Refresh Networks
+    // ============================================
+    function refreshNetworks() {
+      loadNetworks();
+    }
+
+    // ============================================
+    // Toast Notification
+    // ============================================
+    function toast(type, title, msg) {
+      const t = document.getElementById('toast');
+      const b = document.getElementById('toast-backdrop');
+      const icon = document.getElementById('toast-icon');
+      
+      icon.className = type;
+      document.getElementById('toast-title').textContent = title;
+      document.getElementById('toast-msg').textContent = msg || '';
+      
+      t.classList.add('show');
+      b.classList.add('show');
+      
+      if (type !== 'spinner') {
+        setTimeout(() => {
+          t.classList.remove('show');
+          b.classList.remove('show');
+        }, 3000);
+      }
+    }
+
+    // ============================================
+    // Form Submit Handler (Demo)
+    // ============================================
+    function handleSubmit(e) {
+      e.preventDefault();
+      
+      const ssid = document.getElementById('ssid0').value;
+      const password = document.getElementById('password').value;
+      
+      toast('spinner', 'Connecting...', `Connecting to ${ssid}`);
+      
+      // Simulate connection
+      setTimeout(() => {
+        toast('success', 'Connected!', `Successfully connected to ${ssid}`);
+      }, 2000);
+    }
+
+    // ============================================
+    // Initialize
+    // ============================================
+    document.addEventListener('DOMContentLoaded', loadNetworks);
+  </script>
+</body>
+</html>

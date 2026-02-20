@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+  <title>WiFi Setup</title>
+  <link rel="stylesheet" href="/wml/style.css?v=__WML_BUILD_HASH__"/>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>WiFi Setup</h1>
+      <div class="subtitle">Configure your network connection</div>
+    </div>
+
+    <!-- Network Selection Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon" style="background-image: var(--icon-wifi)"></div>
+          Available Networks
+        </div>
+        <button type="button" class="icon-btn" onclick="refreshNetworks()" title="Refresh">
+          <div class="icon icon-refresh"></div>
+        </button>
+      </div>
+      <div id="networks" class="network-list">
+        <div class="network empty">
+          <div class="icon" style="width:32px;height:32px;background:var(--icon-spinner) no-repeat center/contain"></div>
+          <span>Scanning...</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- WiFi Configuration Card (Native Form - maximum compatibility) -->
+    <form id="wifiForm" action="/wml/submit" method="POST" class="card">
+      <div class="card-title">
+        <div class="card-title-icon" style="background-image: var(--icon-settings)"></div>
+        WiFi Configuration
+      </div>
+
+      <label for="devicename">Device Name</label>
+      <input type="text" id="devicename" name="devicename" placeholder="My ESP Device" autocomplete="off" required/>
+
+      <label for="ssid0">SSID</label>
+      <input type="text" id="ssid0" name="ssid0" placeholder="Network name" autocomplete="off"/>
+      <input type="hidden" id="bssid0" name="bssid0"/>
+
+      <label class="toggle-row">
+        <span>Lock to selected BSSID</span>
+        <div class="toggle-switch">
+          <input type="checkbox" id="bssidLock" name="bssidLock" value="1"/>
+          <span class="toggle-slider"></span>
+        </div>
+      </label>
+
+      <label for="password0">Password</label>
+      <input type="password" id="password0" name="password0" placeholder="Network password" autocomplete="new-password"/>
+
+      <div class="section-divider">Fallback Network</div>
+
+      <label for="ssid1">Fallback SSID</label>
+      <input type="text" id="ssid1" name="ssid1" placeholder="Optional backup network" autocomplete="off"/>
+
+      <label for="password1">Password</label>
+      <input type="password" id="password1" name="password1" placeholder="Fallback password" autocomplete="new-password"/>
+
+      <div class="section-divider">Static IP (Optional)</div>
+
+      <label for="ip">IP Address</label>
+      <input type="text" id="ip" name="ip" placeholder="192.168.1.100"/>
+
+      <label for="subnet">Subnet Mask</label>
+      <input type="text" id="subnet" name="subnet" placeholder="255.255.255.0"/>
+
+      <label for="gateway">Gateway</label>
+      <input type="text" id="gateway" name="gateway" placeholder="192.168.1.1"/>
+
+      <label for="dns">DNS Server</label>
+      <input type="text" id="dns" name="dns" placeholder="8.8.8.8"/>
+    </form>
+    
+    <!-- Buttons (outside card) -->
+    <div class="button-stack">
+      <button type="submit" form="wifiForm" class="btn btn-large btn-cta">Save &amp; Connect</button>
+      <button type="button" class="btn btn-large btn-secondary" onclick="doReset()">Reset WiFi</button>
+      <button type="button" class="btn btn-large btn-danger" onclick="doFactoryReset()">Factory Reset</button>
+    </div>
+
+    <!-- Footer -->
+    <div class="page-footer">
+      WiFiManagerLite v__WML_VERSION__
+    </div>
+  </div>
+
+  <!-- Toast Backdrop -->
+  <div id="toast-backdrop"></div>
+  
+  <!-- Toast Notification -->
+  <div id="toast">
+    <div id="toast-icon" class="spinner"></div>
+    <div id="toast-title"></div>
+    <div id="toast-msg"></div>
+  </div>
+
+  <script src="/wml/app.js?v=__WML_BUILD_HASH__"></script>
+</body>
+</html>

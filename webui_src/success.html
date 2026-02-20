@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Success</title>
+  <style>
+    /* ============================================
+       Response Page Styles (Homewind Design)
+       Edit these to customize the success page
+       ============================================ */
+    
+    /* Background */
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+      background: #8D9EB9;
+      margin: 0;
+      padding: 24px;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-sizing: border-box;
+    }
+    
+    /* Card Container */
+    .card {
+      background: #EEF2FA;
+      border-radius: 24px;
+      padding: 48px;
+      text-align: center;
+      max-width: 320px;
+      width: 100%;
+      box-shadow: 0 0 24px rgba(0,0,0,0.1);
+    }
+    
+    /* Icon Circle */
+    .icon {
+      width: 64px;
+      height: 64px;
+      background: #00A554;  /* Green for success */
+      border-radius: 50%;
+      margin: 0 auto 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .icon svg {
+      width: 32px;
+      height: 32px;
+      fill: #fff;
+    }
+    
+    /* Typography */
+    h1 {
+      color: #132237;
+      font-size: 24px;
+      margin: 0 0 8px;
+    }
+    p {
+      color: #516682;
+      margin: 0;
+      line-height: 1.5;
+    }
+    
+    /* Link */
+    a {
+      color: #F00F66;  /* Pink accent */
+      text-decoration: none;
+      font-weight: 600;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+  </style>
+</head>
+<body>
+  <div class="card">
+    <!-- Success Icon (Checkmark) -->
+    <div class="icon">
+      <svg viewBox="0 0 24 24">
+        <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/>
+      </svg>
+    </div>
+    
+    <!-- Message -->
+    <h1>Configuration Saved!</h1>
+    <p>Settings have been updated.<br><a href="/">Back to Setup</a></p>
+  </div>
+</body>
+</html>

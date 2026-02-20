@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+  <title>Status</title>
+  <link rel="stylesheet" href="/wml/style.css?v=__WML_BUILD_HASH__"/>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>Device Status</h1>
+      <div class="subtitle" id="device-name">Loading...</div>
+    </div>
+
+    <!-- Connection Status Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon" style="background-image: var(--icon-wifi)"></div>
+          Connection
+        </div>
+        <span id="connection-indicator" class="indicator disconnected">Disconnected</span>
+      </div>
+      <div class="status-list">
+      <div class="status-item">
+          <span class="status-label">SSID</span>
+          <span class="status-value" id="status-ssid">—</span>
+      </div>
+      <div class="status-item">
+          <span class="status-label">IP Address</span>
+          <span class="status-value" id="status-ip">—</span>
+      </div>
+      <div class="status-item">
+          <span class="status-label">Signal</span>
+          <span class="status-value" id="status-rssi">—</span>
+      </div>
+      <div class="status-item">
+          <span class="status-label">MAC Address</span>
+          <span class="status-value" id="status-mac">—</span>
+      </div>
+      </div>
+    </div>
+
+    <!-- Device Info Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon" style="background-image: var(--icon-settings)"></div>
+          Device Info
+        </div>
+      </div>
+      <div class="status-list">
+      <div class="status-item">
+          <span class="status-label">Hostname</span>
+          <span class="status-value" id="status-hostname">—</span>
+      </div>
+      <div class="status-item">
+          <span class="status-label">Uptime</span>
+          <span class="status-value" id="status-uptime">—</span>
+      </div>
+      <div class="status-item">
+          <span class="status-label">Free Heap</span>
+          <span class="status-value" id="status-heap">—</span>
+      </div>
+      <div class="status-item">
+          <span class="status-label">Firmware</span>
+          <span class="status-value" id="status-version">—</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions Card -->
+    <div class="card">
+      <div class="card-title mb-xl">Quick Actions</div>
+      <div class="button-stack">
+        <a href="/wml/setup" class="btn btn-large btn-cta">WiFi Settings</a>
+        <button type="button" class="btn btn-large btn-secondary" onclick="doReset()">Reset WiFi</button>
+        <button type="button" class="btn btn-large btn-danger" onclick="doFactoryReset()">Factory Reset</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="page-footer">
+      WiFiManagerLite v__WML_VERSION__
+    </div>
+  </div>
+
+  <!-- Toast Backdrop -->
+  <div id="toast-backdrop"></div>
+  
+  <!-- Toast Notification -->
+  <div id="toast">
+    <div id="toast-icon" class="spinner"></div>
+    <div id="toast-title"></div>
+    <div id="toast-msg"></div>
+  </div>
+
+  <script src="/wml/app.js?v=__WML_BUILD_HASH__"></script>
+</body>
+</html>

@@ -1,0 +1,246 @@
+/* ============================================
+   WiFiManagerLite - Advanced Mode Extensions
+   Extends common.css with additional components
+   ============================================ */
+
+:root {
+  /* ----------------------------------------
+     Additional Colors (Advanced Only)
+     ---------------------------------------- */
+  --accent-green: #00A554;
+  --bg-button-primary: #D1DAEB;
+ 
+  
+  /* ----------------------------------------
+     Additional Icons (Advanced Only)
+     ---------------------------------------- */
+  --icon-settings: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='none' viewBox='0 0 32 32'%3E%3Cpath fill='%23374957' d='M5 8.75h2.736a4 4 0 0 0 7.195 0H27a1 1 0 1 0 0-2H14.931a4 4 0 0 0-7.195 0H5a1 1 0 0 0 0 2Zm6.333-2.75a1.75 1.75 0 1 1 0 3.5 1.75 1.75 0 0 1 0-3.5ZM27 15h-2.736a4 4 0 0 0-7.194 0H5a1 1 0 1 0 0 2h12.07a4 4 0 0 0 7.194 0H27a1 1 0 1 0 0-2Zm-6.333 2.75a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5ZM27 23.25H14.931a4 4 0 0 0-7.195 0H5a1 1 0 1 0 0 2h2.736a4 4 0 0 0 7.195 0H27a1 1 0 1 0 0-2Zm-15.667 2.75a1.75 1.75 0 1 1 0-3.5 1.75 1.75 0 0 1 0 3.5Z'/%3E%3C/svg%3E");
+  
+  --icon-wifi: url("data:image/svg+xml,%3Csvg%20width%3D%2232%22%20height%3D%2232%22%20viewBox%3D%220%200%2032%2032%22%20fill%3D%22none%22%20xmlns%3D%22http%3A//www.w3.org/2000/svg%22%3E%3Crect%20x%3D%224%22%20y%3D%2219%22%20width%3D%223%22%20height%3D%229%22%20rx%3D%221.5%22%20fill%3D%22%23374957%22/%3E%3Crect%20x%3D%2211%22%20y%3D%2215%22%20width%3D%223%22%20height%3D%2213%22%20rx%3D%221.5%22%20fill%3D%22%23374957%22/%3E%3Crect%20x%3D%2218%22%20y%3D%2210%22%20width%3D%223%22%20height%3D%2218%22%20rx%3D%221.5%22%20fill%3D%22%23374957%22/%3E%3Crect%20x%3D%2225%22%20y%3D%225%22%20width%3D%223%22%20height%3D%2223%22%20rx%3D%221.5%22%20fill%3D%22%23374957%22/%3E%3C/svg%3E");
+}
+
+
+/* ============================================
+   Card Title Icon
+   ============================================ */
+
+.card-title-icon {
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+
+/* ============================================
+   Toggle Switch
+   ============================================ */
+
+.toggle-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--spc-md);
+  margin: var(--spc-lg) 0;
+  cursor: pointer;
+}
+
+.toggle-row span {
+  color: var(--text-label);
+  font-size: var(--font-size-body-medium);
+  font-weight: var(--font-weight-medium);
+}
+
+.toggle-switch {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  flex-shrink: 0;
+}
+
+.toggle-switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.toggle-slider {
+  position: absolute;
+  cursor: pointer;
+  inset: 0;
+  background: var(--accent-pink);
+  border-radius: var(--radius-pill);
+  transition: background var(--transition-smooth);
+}
+
+.toggle-slider::before {
+  content: "";
+  position: absolute;
+  height: 22px;
+  width: 22px;
+  left: 3px;
+  bottom: 3px;
+  background: white;
+  border-radius: var(--radius-full);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.15);
+  transition: transform var(--transition-smooth);
+}
+
+.toggle-switch input:checked + .toggle-slider {
+  background: var(--accent-green);
+}
+
+.toggle-switch input:checked + .toggle-slider::before {
+  transform: translateX(24px);
+}
+
+.toggle-switch input:focus + .toggle-slider {
+  box-shadow: 0 0 0 3px var(--accent-pink-light);
+}
+
+
+/* ============================================
+   Section Divider
+   ============================================ */
+
+.section-divider {
+  display: flex;
+  align-items: center;
+  gap: var(--spc-lg);
+  margin: var(--spc-2xl) 0 var(--spc-lg);
+  color: var(--text-muted);
+  font-size: var(--font-size-body-small);
+  font-weight: var(--font-weight-semibold);
+}
+
+.section-divider::before,
+.section-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border-soft);
+}
+
+
+
+
+/* ============================================
+   Status List (Status Page)
+   ============================================ */
+
+.status-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spc-xs);
+}
+
+.status-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: var(--spc-lg) 0;
+  border-bottom: 1px solid var(--border-soft);
+}
+
+.status-item:last-child {
+  border-bottom: none;
+}
+
+.status-label {
+  color: var(--text-muted);
+  font-weight: var(--font-weight-medium);
+  font-size: var(--font-size-body-medium);
+}
+
+.status-value {
+  font-weight: var(--font-weight-semibold);
+  font-family: 'SF Mono', Monaco, monospace;
+  font-size: var(--font-size-body-medium);
+}
+
+
+/* ============================================
+   Connection Indicator
+   ============================================ */
+
+.indicator {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spc-md);
+}
+
+.indicator::before {
+  content: '';
+  width: 10px;
+  height: 10px;
+  border-radius: var(--radius-full);
+}
+
+/* Connected State */
+.indicator.connected::before {
+  background: var(--accent-green);
+}
+
+.indicator.connected {
+  color: var(--accent-green);
+}
+
+/* Disconnected State */
+.indicator.disconnected::before {
+  background: var(--accent-pink);
+}
+
+.indicator.disconnected {
+  color: var(--accent-pink);
+}
+
+
+/* ============================================
+   Utility Classes
+   ============================================ */
+
+.mb-xl {
+  margin-bottom: var(--spc-xl);
+}
+
+
+/* ============================================
+   Card Animations
+   ============================================ */
+
+.card {
+  animation: fadeIn 0.3s ease-out;
+  animation-fill-mode: both;
+}
+
+.card:nth-child(1) { animation-delay: 0s; }
+.card:nth-child(2) { animation-delay: 0.1s; }
+.card:nth-child(3) { animation-delay: 0.2s; }
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* ============================================
+   Responsive Adjustments
+   ============================================ */
+
+@media (max-width: 400px) {
+  .app {
+    padding: var(--spc-md);
+  }
+  
+  .card {
+    padding: var(--spc-xl);
+    border-radius: var(--radius-lg);
+  }
+}

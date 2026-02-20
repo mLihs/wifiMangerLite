@@ -1,0 +1,580 @@
+/* ============================================
+   WiFiManagerLite - Basic Design System
+   Homewind Theme
+   ============================================ */
+
+:root {
+  /* ----------------------------------------
+     Core Colors
+     ---------------------------------------- */
+  --background-app: #EEF2FA;
+  --tile-bg: rgba(255,255,255,0.8);
+  --text-main: #132237;
+  --text-muted: #516682;
+  --text-label: #3D4F67;
+  --text-white: #fff;
+  
+  /* ----------------------------------------
+     Accent Colors
+     ---------------------------------------- */
+  --accent-pink: #F00F66;
+  --accent-pink-light: rgba(240, 15, 102, 0.1);
+  --icon-button: #AFBDD4;
+  
+  /* ----------------------------------------
+     Surface Colors
+     ---------------------------------------- */
+  --border-soft: #8D9EB9;
+  --shadow-soft: 0 0 24px rgba(0, 0, 0, 0.1);
+  --bg-white: #fff;
+  --bg-button-cta: var(--accent-pink);
+  --bg-button-secondary: #AFBDD4;
+  --bg-modal-backdrop: rgba(19, 34, 55, 0.50);
+  --bg-network: #EEF2FA;
+  --bg-network-hover: rgba(209, 218, 235, 0.8);
+
+  
+  /* ----------------------------------------
+     Typography
+     ---------------------------------------- */
+  --font-ui: -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+  --font-title: Outfit, var(--font-ui);
+  
+  /* Font Sizes */
+  --font-size-title-large: 28px;
+  --font-size-title-medium: 20px;
+  --font-size-body-large: 17px;
+  --font-size-body-medium: 14px;
+  --font-size-body-small: 12px;
+  
+  /* Font Weights */
+  --font-weight-bold: 700;
+  --font-weight-semibold: 600;
+  --font-weight-medium: 500;
+  
+  /* ----------------------------------------
+     Spacing Scale
+     ---------------------------------------- */
+  --spc-xs: 2px;
+  --spc-sm: 4px;
+  --spc-md: 8px;
+  --spc-lg: 12px;
+  --spc-xl: 16px;
+  --spc-2xl: 24px;
+  
+  /* ----------------------------------------
+     Border Radius Scale
+     ---------------------------------------- */
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-card: 24px;
+  --radius-full: 50%;
+  --radius-pill: 99px;
+  
+  /* ----------------------------------------
+     Transitions
+     ---------------------------------------- */
+  --transition-fast: 0.15s ease;
+  --transition-smooth: 0.25s ease-out;
+  
+  /* ----------------------------------------
+     WiFi Signal Colors
+     ---------------------------------------- */
+  --wifi-100: #25d37d;   /* Excellent */
+  --wifi-75: #d3ad25;    /* Good */
+  --wifi-50: #d36525;    /* Fair */
+  --wifi-25: #d70054;    /* Weak */
+  --wifi-inactive: #AFBDD4;
+  
+  /* ----------------------------------------
+     Icon SVG Data URLs
+     ---------------------------------------- */
+  --icon-spinner: url("data:image/svg+xml,%3Csvg width='32' height='32' stroke='%23F00F66' viewBox='0 0 24 24' xmlns='http://www.w3.org/2000/svg'%3E%3Cstyle%3E.spinner_ble%7Btransform-origin:center;animation:spinner_rotate 2s linear infinite%7D.spinner_ble circle%7Bstroke-linecap:round;animation:spinner_dash 1.5s ease-in-out infinite%7D%40keyframes spinner_rotate%7B100%25%7Btransform:rotate(360deg)%7D%7D%40keyframes spinner_dash%7B0%25%7Bstroke-dasharray:0 150;stroke-dashoffset:0%7D47.5%25%7Bstroke-dasharray:42 150;stroke-dashoffset:-16%7D95%25,100%25%7Bstroke-dasharray:42 150;stroke-dashoffset:-59%7D%7D%3C/style%3E%3Cg class='spinner_ble'%3E%3Ccircle cx='12' cy='12' r='9.5' fill='none' stroke-width='2'/%3E%3C/g%3E%3C/svg%3E");
+  
+  --icon-lock: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' fill='none' viewBox='0 0 24 24'%3E%3Cpath fill='%23374957' d='M19 8.424V7A7 7 0 0 0 5 7v1.424A5 5 0 0 0 2 13v6a5 5 0 0 0 5 5h10a5 5 0 0 0 5-5v-6a5 5 0 0 0-3-4.576ZM7 7a5 5 0 0 1 10 0v1H7V7Zm13 12a3 3 0 0 1-3 3H7a3 3 0 0 1-3-3v-6a3 3 0 0 1 3-3h10a3 3 0 0 1 3 3v6Z'/%3E%3Cpath fill='%23374957' d='M12 14a1 1 0 0 0-1 1v2a1 1 0 1 0 2 0v-2a1 1 0 0 0-1-1Z'/%3E%3C/svg%3E");
+  
+  --icon-refresh: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='none' viewBox='0 0 32 32'%3E%3Cpath fill='%23ffffff' d='M16 6c1.327.004 2.64.272 3.862.787a10.96 10.96 0 0 1 3.26 2.213H20a1 1 0 1 0 0 2h4.143a1.857 1.857 0 0 0 1.857-1.857V5a1 1 0 1 0-2 0v2.078a11.96 11.96 0 0 0-5.876-2.885A11.96 11.96 0 0 0 11.61 4.826a11.96 11.96 0 0 0-5.21 3.964 11.96 11.96 0 0 0-2.35 6.11 1.05 1.05 0 0 0 1.05 1.1c.244.003.482-.084.664-.247a1.05 1.05 0 0 0 .325-.63A9.96 9.96 0 0 1 9.25 8.628 9.96 9.96 0 0 1 16 6Z'/%3E%3Cpath fill='%23ffffff' d='M26.951 16a1.05 1.05 0 0 0-1.05 1.1 9.96 9.96 0 0 1-2.787 5.8 9.96 9.96 0 0 1-5.54 2.89 9.96 9.96 0 0 1-6.28-.86 9.96 9.96 0 0 1-2.416-1.93H12a1 1 0 1 0 0-2H7.857A1.857 1.857 0 0 0 6 22.857V27a1 1 0 1 0 2 0v-2.078a11.96 11.96 0 0 0 5.876 2.885 11.96 11.96 0 0 0 6.515-.634 11.96 11.96 0 0 0 5.21-3.963 11.96 11.96 0 0 0 2.35-6.11 1.05 1.05 0 0 0-1.05-1.1h.05Z'/%3E%3C/svg%3E");
+  
+  --icon-checked-filled: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' fill='none'%3E%3Cpath fill-rule='evenodd' clip-rule='evenodd' d='M16 28C22.6274 28 28 22.6274 28 16C28 9.37258 22.6274 4 16 4C9.37258 4 4 9.37258 4 16C4 22.6274 9.37258 28 16 28ZM15.9275 19.8966L22.7205 13.1896C22.8926 13.0006 22.9848 12.7568 22.9799 12.5012C22.975 12.2456 22.8724 12.0016 22.6932 11.8193C22.514 11.637 22.2717 11.5302 22.0162 11.521C21.7608 11.5118 21.5114 11.6007 21.3195 11.7696L14.5135 18.4696L10.7205 14.7626C10.5309 14.5769 10.2753 14.4742 10.0099 14.477C9.74454 14.4798 9.49116 14.588 9.30551 14.7776C9.11986 14.9672 9.01715 15.2228 9.01996 15.4882C9.02277 15.7536 9.13088 16.0069 9.32051 16.1926L13.1045 19.8966C13.4794 20.27 13.9869 20.4797 14.516 20.4797C15.0451 20.4797 15.5527 20.27 15.9275 19.8966Z' fill='%2300A554'/%3E%3C/svg%3E");
+  
+  --icon-error: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' fill='none'%3E%3Cg clip-path='url(%23a)'%3E%3Cpath fill='%23F00F66' d='M21.333 5.357a8 8 0 0 1 6.978 4.727l2.037 4.583h-7.681a1.333 1.333 0 0 1-1.334-1.334V5.357ZM11.923 28c.049.219.074.442.077.667a3.333 3.333 0 1 1-6.667 0c.003-.225.029-.448.078-.667h6.512Zm14.666 0c.05.219.075.442.078.667a3.333 3.333 0 1 1-6.667 0c.003-.225.029-.448.077-.667h6.512ZM32 21.496a3.804 3.804 0 0 1-4 3.837H4a4 4 0 0 1-4-4V12a6.675 6.675 0 0 1 6.667-6.667h5.6l.88-3.522a2.392 2.392 0 0 1 4.64 0l.88 3.522v8a4 4 0 0 0 4 4h8.716c.341 1.364.548 2.759.617 4.163ZM13.333 16A1.333 1.333 0 0 0 12 14.667h-1.333v-1.334a1.333 1.333 0 1 0-2.667 0v1.334H6.667a1.334 1.334 0 0 0 0 2.666H8v1.334a1.333 1.333 0 1 0 2.667 0v-1.334H12A1.333 1.333 0 0 0 13.333 16Z'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='a'%3E%3Cpath fill='%23fff' d='M0 0h32v32H0z'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+}
+
+
+/* ============================================
+   Reset & Base
+   ============================================ */
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  height: 100%;
+}
+
+body {
+  font-family: var(--font-ui);
+  background: var(--background-app);
+  color: var(--text-main);
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  padding: var(--spc-xl);
+}
+
+
+/* ============================================
+   Layout
+   ============================================ */
+
+.app {
+  width: 100%;
+  max-width: 420px;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spc-xl);
+}
+
+
+/* ============================================
+   Card Component
+   ============================================ */
+
+.card {
+  background: var(--tile-bg);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-soft);
+  padding: var(--spc-2xl);
+}
+
+.card-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--spc-xl);
+}
+
+.card-title {
+  font-family: var(--font-title);
+  font-size: var(--font-size-title-medium);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-main);
+  display: flex;
+  align-items: center;
+  gap: var(--spc-md);
+}
+
+
+/* ============================================
+   Page Header
+   ============================================ */
+
+.page-header {
+  text-align: center;
+  margin-bottom: var(--spc-md);
+}
+
+.page-header h1 {
+  font-family: var(--font-title);
+  font-size: var(--font-size-title-large);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-main);
+  margin: 0;
+}
+
+.page-header .subtitle {
+  font-size: var(--font-size-body-medium);
+  color: var(--text-muted);
+  margin-top: var(--spc-sm);
+}
+
+
+/* ============================================
+   Form Elements
+   ============================================ */
+
+label {
+  display: block;
+  font-size: var(--font-size-body-medium);
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-label);
+  margin: var(--spc-xl) 0 var(--spc-md);
+}
+
+label:first-child {
+  margin-top: 0;
+}
+
+input[type="text"],
+input[type="password"] {
+  width: 100%;
+  padding: var(--spc-lg) var(--spc-xl);
+  background: var(--bg-white);
+  border: 1px solid var(--border-soft);
+  border-radius: var(--radius-md);
+  color: var(--text-main);
+  font-size: var(--font-size-body-medium);
+  font-family: var(--font-ui);
+  transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+}
+
+input:focus {
+  outline: none;
+  border-color: var(--accent-pink);
+  box-shadow: 0 0 0 3px var(--accent-pink-light);
+}
+
+input::placeholder {
+  color: var(--text-muted);
+}
+
+
+/* ============================================
+   Buttons
+   ============================================ */
+
+.btn {
+  display: block;
+  width: 100%;
+  border-radius: var(--radius-pill);
+  border: none;
+  font-family: var(--font-title);
+  cursor: pointer;
+  text-align: center;
+  text-decoration: none;
+  transition: filter var(--transition-fast);
+}
+
+.btn:hover {
+  filter: brightness(0.95);
+}
+
+.btn:active {
+  filter: brightness(0.9);
+}
+
+.btn-large {
+  height: 48px;
+  line-height: 48px;
+  font-size: var(--font-size-body-large);
+  padding: 0 var(--spc-2xl);
+}
+
+.btn-cta {
+  background: var(--bg-button-cta);
+  color: white;
+  font-weight: var(--font-weight-bold);
+}
+
+.btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.button-stack {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spc-lg);
+  margin-top: var(--spc-xl);
+}
+
+/* Button stack outside cards */
+.app > .button-stack {
+  margin-top: 0;
+}
+
+
+/* ============================================
+   Additional Button Variants
+   ============================================ */
+
+.btn-secondary {
+  background: var(--bg-button-secondary);
+  color: var(--text-main);
+  font-weight: var(--font-weight-semibold);
+}
+
+.btn-danger {
+  background: transparent;
+  border: 1px solid var(--bg-button-secondary);
+  color: var(--text-label);
+  font-weight: var(--font-weight-semibold);
+  line-height: 46px;
+}
+
+.btn-danger:hover {
+  background: var(--bg-white);
+}
+
+
+
+/* ============================================
+   Icon Button
+   ============================================ */
+
+.icon-btn {
+  width: 40px;
+  height: 40px;
+  border: none;
+  background: var(--icon-button);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: filter var(--transition-fast);
+}
+
+.icon-btn:hover {
+  filter: brightness(0.95);
+}
+
+.icon-btn .icon {
+  width: 24px;
+  height: 24px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.icon-refresh {
+  background-image: var(--icon-refresh);
+}
+
+
+/* ============================================
+   Network List
+   ============================================ */
+
+.network-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spc-md);
+  max-height: 320px;
+  overflow-y: auto;
+}
+
+.network {
+  display: flex;
+  align-items: center;
+  gap: var(--spc-lg);
+  padding: var(--spc-lg);
+  background: var(--bg-network);
+  border: 1px solid transparent;
+  border-radius: var(--radius-lg);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  width: 100%;
+  text-align: left;
+  color: var(--text-main);
+}
+
+.network:hover {
+  background: var(--bg-network-hover);
+}
+
+.network.selected {
+  border-color: var(--accent-pink);
+  background: var(--accent-pink-light);
+}
+
+.network-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.ssid {
+  font-weight: var(--font-weight-bold);
+  font-size: var(--font-size-body-medium);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.network-meta {
+  display: flex;
+  align-items: center;
+  gap: var(--spc-md);
+  font-size: var(--font-size-body-small);
+  color: var(--text-muted);
+  margin-top: var(--spc-xs);
+}
+
+.network-lock {
+  margin-left: auto;
+  flex-shrink: 0;
+}
+
+.network.empty {
+  justify-content: center;
+  color: var(--text-muted);
+  cursor: default;
+  padding: var(--spc-2xl);
+}
+
+.network.empty:hover {
+  border-color: transparent;
+  background: var(--bg-white);
+}
+
+
+/* ============================================
+   WiFi Signal Bars
+   ============================================ */
+
+.wifi-signal {
+  position: relative;
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  padding: 3px;
+  flex-shrink: 0;
+}
+
+.wifi-bar {
+  width: 4px;
+  border-radius: 2px;
+  background: var(--wifi-inactive);
+}
+
+.wifi-bar:nth-child(1) { height: 25%; }
+.wifi-bar:nth-child(2) { height: 50%; }
+.wifi-bar:nth-child(3) { height: 75%; }
+.wifi-bar:nth-child(4) { height: 100%; }
+
+/* Signal Strength: 100% (Excellent) */
+.wifi-signal.strength-100 .wifi-bar {
+  background: var(--wifi-100);
+}
+
+/* Signal Strength: 75% (Good) */
+.wifi-signal.strength-75 .wifi-bar:nth-child(1),
+.wifi-signal.strength-75 .wifi-bar:nth-child(2),
+.wifi-signal.strength-75 .wifi-bar:nth-child(3) {
+  background: var(--wifi-75);
+}
+
+/* Signal Strength: 50% (Fair) */
+.wifi-signal.strength-50 .wifi-bar:nth-child(1),
+.wifi-signal.strength-50 .wifi-bar:nth-child(2) {
+  background: var(--wifi-50);
+}
+
+/* Signal Strength: 25% (Weak) */
+.wifi-signal.strength-25 .wifi-bar:nth-child(1) {
+  background: var(--wifi-25);
+}
+
+.lock-icon {
+  width: 16px;
+  height: 16px;
+  background: var(--icon-lock) no-repeat center/contain;
+  flex-shrink: 0;
+}
+
+.network .lock-icon {
+  width: 20px;
+  height: 20px;
+}
+
+
+/* ============================================
+   Toast Notification
+   ============================================ */
+
+#toast-backdrop {
+  position: fixed;
+  inset: 0;
+  background: var(--bg-modal-backdrop);
+  backdrop-filter: blur(5px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-smooth);
+  z-index: 99;
+}
+
+#toast-backdrop.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#toast {
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  max-width: 360px;
+  width: calc(100% - 40px);
+  background: var(--tile-bg);
+  border-radius: var(--radius-card);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  padding: var(--spc-2xl);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: var(--spc-lg);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity var(--transition-smooth);
+  z-index: 100;
+}
+
+#toast.show {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+#toast-icon {
+  width: 48px;
+  height: 48px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+#toast-icon.spinner {
+  background-image: var(--icon-spinner);
+}
+
+#toast-icon.success {
+  background-image: var(--icon-checked-filled);
+}
+
+#toast-icon.error {
+  background-image: var(--icon-error);
+}
+
+#toast-title {
+  font-family: var(--font-title);
+  font-size: var(--font-size-title-medium);
+  font-weight: var(--font-weight-bold);
+  color: var(--text-main);
+}
+
+#toast-msg {
+  font-size: var(--font-size-body-medium);
+  color: var(--text-muted);
+}
+
+
+/* ============================================
+   Footer
+   ============================================ */
+
+.page-footer {
+  text-align: center;
+  font-size: var(--font-size-body-small);
+  color: var(--text-white);
+  padding: var(--spc-xl) 0;
+}
+
+.page-footer a {
+  color: var(--accent-pink);
+  text-decoration: none;
+}

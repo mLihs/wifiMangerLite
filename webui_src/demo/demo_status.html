@@ -1,0 +1,168 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+  <title>Demo - Status Page</title>
+  <!-- Direct links to CSS for easy editing -->
+  <link rel="stylesheet" href="../common.css"/>
+  <link rel="stylesheet" href="../advanced.css"/>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>Device Status</h1>
+      <div class="subtitle" id="device-name">ESP-Demo-Device</div>
+    </div>
+
+    <!-- Connection Status Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon" style="background-image: var(--icon-wifi)"></div>
+          Connection
+        </div>
+        <span id="connection-indicator" class="indicator connected">Connected</span>
+      </div>
+      <div class="status-list">
+        <div class="status-item">
+          <span class="status-label">SSID</span>
+          <span class="status-value" id="status-ssid">HomeNetwork_5G</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">IP Address</span>
+          <span class="status-value" id="status-ip">192.168.1.142</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Signal</span>
+          <span class="status-value" id="status-rssi">-42 dBm</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">MAC Address</span>
+          <span class="status-value" id="status-mac">AA:BB:CC:DD:EE:FF</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Device Info Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">
+          <div class="card-title-icon" style="background-image: var(--icon-settings)"></div>
+          Device Info
+        </div>
+      </div>
+      <div class="status-list">
+        <div class="status-item">
+          <span class="status-label">Hostname</span>
+          <span class="status-value" id="status-hostname">esp-demo-device</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Uptime</span>
+          <span class="status-value" id="status-uptime">2d 14h 32m</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Free Heap</span>
+          <span class="status-value" id="status-heap">186,432 bytes</span>
+        </div>
+        <div class="status-item">
+          <span class="status-label">Firmware</span>
+          <span class="status-value" id="status-version">v2.5.0</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Actions Card -->
+    <div class="card">
+      <div class="card-title mb-xl">Quick Actions</div>
+      <div class="button-stack">
+        <a href="demo_setup.html" class="btn btn-large btn-cta">WiFi Settings</a>
+        <button type="button" class="btn btn-large btn-secondary" onclick="doReset()">Reset WiFi</button>
+        <button type="button" class="btn btn-large btn-danger" onclick="doFactoryReset()">Factory Reset</button>
+      </div>
+    </div>
+
+    <!-- Footer -->
+    <div class="page-footer">
+      WiFiManagerLite v2.5.0 - Demo Mode
+    </div>
+  </div>
+
+  <!-- Toast Backdrop -->
+  <div id="toast-backdrop"></div>
+  
+  <!-- Toast Notification -->
+  <div id="toast">
+    <div id="toast-icon" class="spinner"></div>
+    <div id="toast-title"></div>
+    <div id="toast-msg"></div>
+  </div>
+
+  <script>
+    // ============================================
+    // Toast Notification
+    // ============================================
+    function toast(type, title, msg) {
+      const t = document.getElementById('toast');
+      const b = document.getElementById('toast-backdrop');
+      const icon = document.getElementById('toast-icon');
+      
+      icon.className = type;
+      document.getElementById('toast-title').textContent = title;
+      document.getElementById('toast-msg').textContent = msg || '';
+      
+      t.classList.add('show');
+      b.classList.add('show');
+      
+      if (type !== 'spinner') {
+        setTimeout(() => {
+          t.classList.remove('show');
+          b.classList.remove('show');
+        }, 3000);
+      }
+    }
+
+    // ============================================
+    // Reset Functions (Demo)
+    // ============================================
+    function doReset() {
+      toast('spinner', 'Resetting...', 'Clearing WiFi settings');
+      setTimeout(() => {
+        toast('success', 'WiFi Reset', 'Settings cleared. Device will restart.');
+        // Simulate disconnect
+        document.getElementById('connection-indicator').className = 'indicator disconnected';
+        document.getElementById('connection-indicator').textContent = 'Disconnected';
+        document.getElementById('status-ssid').textContent = '—';
+        document.getElementById('status-ip').textContent = '—';
+        document.getElementById('status-rssi').textContent = '—';
+      }, 1500);
+    }
+
+    function doFactoryReset() {
+      if (confirm('Are you sure you want to factory reset? All settings will be lost.')) {
+        toast('spinner', 'Factory Reset...', 'Erasing all data');
+        setTimeout(() => {
+          toast('success', 'Factory Reset Complete', 'Device will restart.');
+        }, 2000);
+      }
+    }
+
+    // ============================================
+    // Simulate Live Updates (Demo)
+    // ============================================
+    let uptime = 2 * 24 * 60 + 14 * 60 + 32; // minutes
+
+    function updateUptime() {
+      uptime++;
+      const days = Math.floor(uptime / (24 * 60));
+      const hours = Math.floor((uptime % (24 * 60)) / 60);
+      const mins = uptime % 60;
+      document.getElementById('status-uptime').textContent = `${days}d ${hours}h ${mins}m`;
+    }
+
+    // Update uptime every minute (demo uses seconds for visibility)
+    setInterval(updateUptime, 60000);
+  </script>
+</body>
+</html>

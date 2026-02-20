@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no"/>
+  <title>WiFi Setup</title>
+  <link rel="stylesheet" href="/wml/style.css?v=__WML_BUILD_HASH__"/>
+</head>
+<body>
+  <div class="app">
+    <!-- Header -->
+    <div class="page-header">
+      <h1>WiFi Setup</h1>
+      <div class="subtitle">Select a network to connect</div>
+    </div>
+
+    <!-- Network Selection Card -->
+    <div class="card">
+      <div class="card-header">
+        <div class="card-title">Available Networks</div>
+        <button type="button" class="icon-btn" onclick="refreshNetworks()" title="Refresh">
+          <div class="icon icon-refresh"></div>
+        </button>
+      </div>
+      <div id="networks" class="network-list">
+        <div class="network empty">
+          <div style="width:32px;height:32px;background:var(--icon-spinner) no-repeat center/contain"></div>
+          <span>Scanning...</span>
+        </div>
+      </div>
+    </div>
+    
+    <!-- Password Card (Native Form - no JS needed for submit) -->
+    <form action="/wml/submit" method="POST" class="card" id="wifiForm">
+      <label for="password">WiFi Password</label>
+      <input type="password" id="password" name="password0" placeholder="Enter network password" autocomplete="new-password"/>
+      <input type="hidden" id="ssid0" name="ssid0"/>
+      <input type="hidden" id="bssid0" name="bssid0"/>
+      <input type="hidden" name="devicename" value="ESP-Device"/>
+    </form>
+    
+    <!-- Save Button (outside card) -->
+    <div class="button-stack">
+      <button type="submit" form="wifiForm" class="btn btn-large btn-cta" id="saveBtn" disabled>Save &amp; Connect</button>
+    </div>
+    
+    <!-- Footer -->
+    <div class="page-footer">WiFiManagerLite</div>
+  </div>
+  
+  <!-- Toast Backdrop -->
+  <div id="toast-backdrop"></div>
+  
+  <!-- Toast Notification -->
+  <div id="toast">
+    <div id="toast-icon" class="spinner"></div>
+    <div id="toast-title"></div>
+    <div id="toast-msg"></div>
+  </div>
+  
+  <script src="/wml/app.js?v=__WML_BUILD_HASH__"></script>
+</body>
+</html>
