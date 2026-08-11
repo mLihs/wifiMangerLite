@@ -82,7 +82,7 @@ Convenience aliases:
 |--------|---------|-------------|
 | `WML_CONNECT_TIMEOUT_MS` | `8000` | Timeout per connection attempt (ms) |
 | `WML_RETRY_INTERVAL_MS` | `15000` | Delay between retry attempts (ms) |
-| `WML_MAX_RETRIES_BEFORE_AP` | `2` | Failed attempts before starting AP |
+| `WML_MAX_RETRIES_BEFORE_AP` | `4` | Failed attempts before starting AP |
 | `WML_AP_AUTO_TIMEOUT_MS` | `0` | Auto-restart after AP inactivity (0=disabled) |
 
 ### Example: Aggressive Reconnection

@@ -54,7 +54,7 @@ config.primary.setSsid("MyNetwork");
 
 ## Version
 
-- **Library Version:** 3.0.1
+- **Library Version:** 3.0.0
 - **Documentation Updated:** 2026-01-29
 - **UI Design:** Homewind Design System (Light Theme)
 - **JavaScript:** ES5-compatible, XMLHttpRequest (Captive Portal optimized)

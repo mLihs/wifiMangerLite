@@ -766,7 +766,16 @@ void WiFiManagerLite::internalStartAP() {
         prefix = cfg.ap.ssidPrefix;  // char[] direkt
     }
     char apName[64];
+#if WML_AP_APPEND_MAC
     snprintf(apName, sizeof(apName), "%s%08lx", prefix, (unsigned long)(ESP.getEfuseMac() & 0xFFFFFFFF));
+#else
+    // MAC-Suffix deaktiviert: Prefix pur verwenden, abschliessendes '-' entfernen
+    snprintf(apName, sizeof(apName), "%s", prefix);
+    size_t apNameLen = strlen(apName);
+    if (apNameLen > 0 && apName[apNameLen - 1] == '-') {
+        apName[apNameLen - 1] = '\0';
+    }
+#endif
     
     Serial.printf("[AP] Step 8: Starting softAP: %s\n", apName);
     Serial.flush();

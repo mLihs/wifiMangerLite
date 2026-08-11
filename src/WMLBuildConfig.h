@@ -104,6 +104,12 @@
 #define WML_AP_SSID_PREFIX "ESP-Setup-"
 #endif
 
+// Append MAC suffix to AP SSID (1 = "Prefix-a1b2c3d4", 0 = "Prefix" only).
+// Disable only for single-device products; a trailing '-' is trimmed.
+#ifndef WML_AP_APPEND_MAC
+#define WML_AP_APPEND_MAC 1
+#endif
+
 // Default AP password (empty = open network)
 #ifndef WML_AP_PASSWORD
 #define WML_AP_PASSWORD ""

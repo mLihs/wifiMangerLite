@@ -2,7 +2,7 @@
 
 A lightweight, modular WiFi connection manager for ESP32 with optional captive portal and NVS storage.
 
-[![Version](https://img.shields.io/badge/version-3.0.1-blue)](CHANGELOG.md)
+[![Version](https://img.shields.io/badge/version-2.6.5-blue)](CHANGELOG.md)
 ![Platform](https://img.shields.io/badge/platform-ESP32-green)
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
@@ -86,8 +86,8 @@ All options via `#define` before including the library:
 
 // WiFi settings
 #define WML_CONNECT_TIMEOUT_MS 8000
-#define WML_MAX_RETRIES_BEFORE_AP 2
-#define WML_RETRY_INTERVAL_MS 10000
+#define WML_MAX_RETRIES_BEFORE_AP 2   // v2.6.x: Default changed from 4 to 2
+#define WML_RETRY_INTERVAL_MS 10000   // v2.6.x: Default changed from 15000 to 10000
 
 // AP settings
 #define WML_AP_SSID_PREFIX "MyDevice-"
@@ -116,7 +116,7 @@ Full documentation in the `docs/` folder:
 
 - **Required:** ArduinoJson (v7+)
 - **Optional:** ESPAsyncWebServer (for Captive Portal)
-- **Required for Storage:** NVSUtilityLibrary
+- **Optional:** NVSUtilityLibrary (for Storage)
 
 ## Building Web UI
 
@@ -128,7 +128,7 @@ python3 tools/build_webui.py
 
 ## License
 
-MIT License – see [LICENSE](LICENSE) for details.
+MIT License - see LICENSE file.
 
 ## Credits & Inspiration
 

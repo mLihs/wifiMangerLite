@@ -7,13 +7,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ---
 
-## [3.0.1] - 2026-02-20
-
-### Changed
-- **Docs:** README version badge 3.0.0; `WML_MAX_RETRIES_BEFORE_AP` default 2 in 02_CONFIGURATION.md; NVSUtilityLibrary noted as required for Storage
-
----
-
 ## [3.0.0] - 2026-01-29
 
 ### 🚀 BREAKING CHANGE: Zero Heap Fragmentation
